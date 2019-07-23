@@ -7,22 +7,50 @@ import PersonDetails from '../person-details';
 
 import './app.css';
 
-const App = () => {
-  return (
-    <div>
-      <Header />
-      <RandomPlanet />
+export default class App extends React.Component {
 
-      <div className="row mb2">
-        <div className="col-md-6">
-          <ItemList />
-        </div>
-        <div className="col-md-6">
-          <PersonDetails />
+  state = {
+    showRandomPlanet: true,
+    selectedPersonId: null
+  };
+
+  toggleRandomPlanet = () => {
+    this.setState((state) => {
+      return {
+        showRandomPlanet: !state.showRandomPlanet
+      }
+    });
+  };
+
+  onPersonCLick = (id) =>{
+    this.setState({
+      selectedPersonId:id
+    })
+  }
+
+  render() {
+    const planet = this.state.showRandomPlanet ?
+      <RandomPlanet/> :
+      null;
+    return (
+      <div>
+        <Header />
+        { planet }
+        <button
+          className="toggle-planet btn btn-warning btn-lg"
+          onClick={this.toggleRandomPlanet}>
+          Toggle Random Planet
+        </button>
+
+        <div className="row mb2">
+          <div className="col-md-6">
+            <ItemList onPersonCLick={this.onPersonCLick}/>
+          </div>
+          <div className="col-md-6">
+            <PersonDetails selectedPersonId={this.state.selectedPersonId}/>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
-
-export default App;
