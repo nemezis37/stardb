@@ -24,7 +24,7 @@ export default class App extends React.Component {
 
   onPersonCLick = (id) =>{
     this.setState({
-      selectedPersonId:id
+      selectedPersonId: id
     })
   }
 
