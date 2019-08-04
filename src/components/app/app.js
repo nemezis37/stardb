@@ -1,14 +1,12 @@
 import React from 'react';
 
-import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ErrorIndicator from '../error-indicator';
-import PeoplePage from '../people-page';
-
 import './app.css';
 import Row from '../row';
-import ItemDetails, {DetailsRecord} from '../item-details/item-details';
 import SwapiService from '../../services/swapi-service';
+import { PersonList, PersonDetails, StarshipList, PlanetList, PlanetDetails, StarshipDetails } from '../sw-components';
+import { DetailsRecord } from '../item-details/item-details';
 
 export default class App extends React.Component {
 
@@ -40,27 +38,40 @@ export default class App extends React.Component {
       <RandomPlanet /> :
       null;
 
-    const personDeatails = (<ItemDetails selectedItemId={3}
-      getData={(id) => { return this.swapiService.getPerson(id) }}
-      getImage={(id) => { return this.swapiService.getPersonImageUrl(id) }} >
-        <DetailsRecord label="Gender" property="gender"/>
-        <DetailsRecord label="Birth Year" property="birthYear"/>
-        <DetailsRecord label="Eye Color" property="eyeColor"/>
-      </ItemDetails>)
-
-    const starshipDetails = (<ItemDetails selectedItemId={5}
-      getData={(id) => { return this.swapiService.getStraship(id) }}
-      getImage={(id) => { return this.swapiService.getStarshipImageUrl(id) }} >
-        <DetailsRecord label="Starship Class" property="starshipClass"/>
-        <DetailsRecord label="Model" property="model"/>
-      </ItemDetails>)
 
     return (
       <div>
 
-        <Row left={personDeatails}
-          right={starshipDetails}
-        />
+      
+
+        <StarshipList >
+          {({name}) => <span>{name}</span>}
+        </StarshipList>
+
+
+
+        <PlanetList >
+          {({name}) => <span>{name}</span>}
+        </PlanetList>
+
+        
+        <PersonList >
+          {({name}) => <span>{name}</span>}
+        </PersonList>
+
+        <PersonDetails selectedItemId={3}>
+          <DetailsRecord label="Gender" property="gender" />
+          <DetailsRecord label="Birth Year" property="birthYear" />
+          <DetailsRecord label="Eye Color" property="eyeColor" />
+        </PersonDetails>
+        <PlanetDetails selectedItemId={7}>
+          <DetailsRecord label="Name" property="name" />
+        </PlanetDetails>
+        <StarshipDetails selectedItemId={5}>
+          <DetailsRecord label="Starship Class" property="starshipClass" />
+          <DetailsRecord label="Model" property="model" />
+        </StarshipDetails>
+
 
         {/* <Header />
         {planet}
